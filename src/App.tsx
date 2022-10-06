@@ -1,26 +1,20 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {GlobalStyles, JSSProvider} from "./jss";
+import {MainPage} from "./page/MainPage";
+import {ThemeProvider} from "./theme/ThemeProvider";
+import {createTheme} from "./theme";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export const App = () => {
+    const theme = createTheme();
+    return (
+        <JSSProvider>
+            <ThemeProvider theme={theme}>
+                <GlobalStyles global={{
+                    'a': {color: theme.palette.main,},
+                    'html, body, #root': {height: '100%', margin: 0, padding: 0, background: '#000000'}
+                }}/>
+                <MainPage/>
+            </ThemeProvider>
+        </JSSProvider>
+    )
 }
-
-export default App;
